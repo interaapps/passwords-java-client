@@ -3,6 +3,7 @@ package de.interaapps.passwords.apiclient.responses;
 
 import de.interaapps.passwords.apiclient.PasswordsAPI;
 import de.interaapps.passwords.apiclient.helper.EncryptionHelper;
+import de.interaapps.passwords.apiclient.requests.SaveNoteRequest;
 import de.interaapps.passwords.apiclient.requests.SavePasswordRequest;
 
 import javax.crypto.BadPaddingException;
@@ -88,6 +89,18 @@ public class FetchResponse {
 
     public boolean deleteFolder(Folder folder){
         return passwordsAPI.deleteFolder(folder.getId());
+    }
+
+    public boolean saveNote(Note note){
+        SuccessResponse response = passwordsAPI.put("/note").jsonBody(new SaveNoteRequest(note, decryptedKeys.get("APP.MASTER"))).object(SuccessResponse.class);
+        if (note.getId() == 0)
+            notes.add(0, note);
+        note.setId((int) (double) response.extra.get("id"));
+        return response.success;
+    }
+
+    public boolean deleteNote(Note note){
+        return passwordsAPI.deleteNote(note.getId());
     }
 
     private void addFolderRec(PasswordListResponse passwords, Folder folder){

@@ -25,6 +25,20 @@ class Test {
         
         
         instance.deletePassword(password.getId());
+        
+        // Notes
+        
+        Note note = new Note();
+        note.setTitle("Nice Title");
+        note.setContent("Hello");
+        instance.saveNote(note);
+        
+        instance.getNotes().forEach(notes -> {
+            System.out.println(notes.getTitle());
+        });
+        
+        instance.deleteNote(note.getId());
+        
     }
 }
 ```

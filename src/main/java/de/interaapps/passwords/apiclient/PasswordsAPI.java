@@ -56,6 +56,10 @@ public class PasswordsAPI extends HTTPClient {
 
         decryptPasswordList(fetchResponse.getPasswords(), keys);
 
+        fetchResponse.getNotes().forEach(note -> {
+            note.decrypt(masterKey.get(), this);
+        });
+
         return fetchResponse;
     }
 
@@ -76,6 +80,10 @@ public class PasswordsAPI extends HTTPClient {
 
     public boolean deletePassword(int id) {
         return delete("/password/"+id).object(SuccessResponse.class).success;
+    }
+
+    public boolean deleteNote(int id) {
+        return delete("/note/"+id).object(SuccessResponse.class).success;
     }
 
     public boolean createKey(String key, String name, Key.KeyType type) {
