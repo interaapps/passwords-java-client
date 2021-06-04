@@ -92,6 +92,6 @@ public class PasswordsAPI extends HTTPClient {
 
 
     public String login(String iaAuthCode){
-        return get("/api/authentication/login").query("userkey", iaAuthCode).execute().header("Location").split("key=")[1];
+        return get("/auth/ia/login").query("userkey", iaAuthCode).execute().header("Location").split("authentication=")[1];
     }
 }
