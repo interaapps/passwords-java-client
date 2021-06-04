@@ -8,17 +8,12 @@ import javax.crypto.BadPaddingException;
 import java.sql.Timestamp;
 
 public class Folder {
-    public int id;
-
-    public String name;
-
-    public String color;
-
-    public int parentId;
-
-    Timestamp createdAt;
-
-    Timestamp updatedAt;
+    private int id;
+    private String name = "";
+    private String color = "#FF4343";
+    private int parentId;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
 
 
@@ -30,4 +25,39 @@ public class Folder {
         this.passwordsAPI = passwordsAPI;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -7,24 +7,23 @@ import javax.crypto.BadPaddingException;
 import java.sql.Timestamp;
 
 public class Password {
-    public int id;
-    public int userId;
-    public String name;
-    public String username;
-    public String password;
-    public String website;
-    public String description;
-    public String totp;
-    public int folder;
-    Timestamp createdAt;
-    Timestamp updatedAt;
+    private int id;
+    private int userId;
+    private String name = "";
+    private String username = "";
+    private String password = "";
+    private String website = "";
+    private  String description = "";
+    private  String totp = "";
+    private int folder = 0;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
 
     private transient String masterPassword;
     private transient PasswordsAPI passwordsAPI;
 
     public void decrypt(String masterPassword, PasswordsAPI passwordsAPI){
-        System.out.println(masterPassword);
         try {
             name = EncryptionHelper.decrypt(masterPassword, name);
             username = EncryptionHelper.decrypt(masterPassword, username);
@@ -32,14 +31,12 @@ public class Password {
             website = EncryptionHelper.decrypt(masterPassword, website);
             description = EncryptionHelper.decrypt(masterPassword, description);
 
-            if (totp != null)
+            if (totp != null && !totp.trim().equals("")) {
                 totp = EncryptionHelper.decrypt(masterPassword, totp);
-            System.out.println(id+" | "+name+" | "+password);
+            }
             this.masterPassword = masterPassword;
             this.passwordsAPI = passwordsAPI;
-        } catch (BadPaddingException e) {
-            System.out.println(id+" | err");
-        }
+        } catch (BadPaddingException ignored) { }
     }
 
 
