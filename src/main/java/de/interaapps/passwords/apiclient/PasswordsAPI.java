@@ -42,7 +42,6 @@ public class PasswordsAPI extends HTTPClient {
         fetchResponse.getKeys().forEach(key -> {
             if (!key.type.equals(Key.KeyType.MASTER_PASSWORD)) {
                 try {
-                    System.out.println("SETTING: "+key.name);
                     keys.put(key.name, EncryptionHelper.decrypt(masterKey.get(), key.key));
                 } catch (BadPaddingException e) {
                     e.printStackTrace();
